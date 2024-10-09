@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Tourism in Malaysia</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Vega, Vega-Lite, and Vega-Embed -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
 </head>
 <body>
     <header>
@@ -23,5 +28,20 @@
         <img src="https://raw.githubusercontent.com/JunaidLimalia/3179_A2/main/images/langkawi.jpeg" alt="Langkawi Island Cable Car" width="300">
         <img src="https://raw.githubusercontent.com/JunaidLimalia/3179_A2/main/images/kinabula.jpeg" alt="Kinabalu National Park in Sabah" width="300">
     </section>
+
+    <section class="map-title">
+        <h2>Global Tourist Arrivals to Malaysia</h2>
+    </section>
+
+    <!-- World map container -->
+    <section id="map"></section>
+
+    <!-- Script for embedding the Vega-Lite map -->
+    <script>
+        // Load the external JSON file
+        vegaEmbed('#map', 'js/world_map.vg.json').then(function(result) {
+          console.log("Map rendered successfully");
+        }).catch(console.error);
+    </script>
 </body>
 </html>

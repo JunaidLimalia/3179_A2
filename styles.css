@@ -19,9 +19,9 @@ header {
     margin-bottom: 5px;
 }
 
-/* Text styling for the header */
+/* Main title styling */
 h1 {
-    font-size: 2.5em;
+    font-size: 3.0em; /* Increased font size */
     font-weight: bold;
     font-style: italic;
     letter-spacing: 0.05em;
@@ -42,11 +42,35 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 15px; 
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 /* Styling for the images */
 .images img {
     width: 280px;
     border-radius: 10px;
+}
+
+/* Map Title section */
+.map-title {
+    text-align: center;
+    background-color: #e0e0c0; /* Slightly darker than #f5f5dc */
+    padding: 15px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.map-title h2 {
+    font-size: 2em;
+    color: #333;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Map container styling */
+#map {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
 }
