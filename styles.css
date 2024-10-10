@@ -21,7 +21,7 @@ header {
 
 /* Main title styling */
 h1 {
-    font-size: 3.0em; /* Increased font size */
+    font-size: 3.0em;
     font-weight: bold;
     font-style: italic;
     letter-spacing: 0.05em;
@@ -54,7 +54,7 @@ h1 {
 /* Map Title section */
 .map-title {
     text-align: center;
-    background-color: #e0e0c0; /* Slightly darker than #f5f5dc */
+    background-color: #e0e0c0;
     padding: 15px;
     width: 100%;
     margin-top: 40px;
@@ -73,4 +73,14 @@ h1 {
     max-width: 1000px;
     margin: 20px auto;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.map-description {
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    max-width: 700px;
+    line-height: 1.4;
 }
