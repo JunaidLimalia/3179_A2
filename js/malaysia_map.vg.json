@@ -4,7 +4,6 @@
   "padding": 5,
   "width": 800,
   "height": 600,
-  "title": {"text": "Tourist Destination in Malaysia", "frame": "group"},
   "style": "view",
   "data": [
     {
