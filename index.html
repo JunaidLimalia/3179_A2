@@ -29,11 +29,12 @@
         <img src="https://raw.githubusercontent.com/JunaidLimalia/3179_A2/main/images/kinabula.jpeg" alt="Kinabalu National Park in Sabah" width="300">
     </section>
 
+
+      <!-- World map container -->
     <section class="map-title">
         <h2>Global Tourist Arrivals to Malaysia</h2>
     </section>
 
-    <!-- World map container -->
     <section id="map"></section>
 
     <section class="map-description">
@@ -43,7 +44,7 @@
     </section>
     
 
-    <!-- Script for embedding the inline Vega-Lite world map -->
+    <!-- Script for embedding the world map -->
     <script>
       const spec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -130,5 +131,115 @@
         console.log("Map rendered successfully");
       }).catch(console.error);
     </script>
+
+
+    <!-- Malaysia map container -->
+    <section class="map-title">
+        <h2>Tourist Destination in Malaysia</h2>
+    </section>
+
+    <section class="map-container">
+        <div id="malaysia-map"></div>
+        <div class="map-description-right">
+            <p>
+                The map shows the number of tourist arrivals across different Malaysian states in 2023. The darker red areas indicate higher numbers of tourists, with 
+                Selangor and Sabah being the top destinations. These states attract a significant number of both local and international visitors.
+            </p>
+        </div>
+    </section>
+
+    <!-- Script for embedding the Malaysia map -->
+    <script>
+        const spec1 = {
+            "$schema": "https://vega.github.io/schema/vega/v5.json",
+            "background": "#f5f5dc",
+            "padding": 5,
+            "width": 800,
+            "height": 600,
+            "style": "view",
+            "data": [
+            {
+                "name": "source_1",
+                "url": "https://raw.githubusercontent.com/JunaidLimalia/3179_A2/main/data/tourist-arrivals-by-states-malaysia-2023.csv",
+                "format": {"type": "csv", "delimiter": ","}
+            },
+            {
+                "name": "source_0",
+                "url": "https://raw.githubusercontent.com/nullifye/malaysia.geojson/master/malaysia.state.geojson",
+                "format": {"type": "json", "property": "features", "parse": {}},
+                "transform": [
+                {
+                    "type": "formula",
+                    "expr": "datum[\"properties\"] && datum[\"properties\"][\"name\"]",
+                    "as": "properties.name"
+                },
+                {
+                    "type": "lookup",
+                    "from": "source_1",
+                    "key": "State",
+                    "fields": ["properties.name"],
+                    "values": ["Tourist_Arrivals"]
+                },
+                {
+                    "type": "filter",
+                    "expr": "isValid(datum[\"Tourist_Arrivals\"]) && isFinite(+datum[\"Tourist_Arrivals\"])"
+                }
+                ]
+            }
+            ],
+            "projections": [
+            {
+                "name": "projection",
+                "size": {"signal": "[width, height]"},
+                "fit": {"signal": "data('source_0')"},
+                "type": "mercator"
+            }
+            ],
+            "marks": [
+            {
+                "name": "marks",
+                "type": "shape",
+                "style": ["geoshape"],
+                "from": {"data": "source_0"},
+                "encode": {
+                "update": {
+                    "stroke": {"value": "white"},
+                    "strokeWidth": {"value": 1},
+                    "fill": {"scale": "color", "field": "Tourist_Arrivals"},
+                    "tooltip": {
+                    "signal": "{\"State\": isValid(datum[\"properties.name\"]) ? datum[\"properties.name\"] : \"\"+datum[\"properties.name\"], \"Tourist Arrivals\": format(datum[\"Tourist_Arrivals\"], \"\")}"
+                    },
+                    "ariaRoleDescription": {"value": "geoshape"},
+                    "description": {
+                    "signal": "\"Tourist_Arrivals: \" + (format(datum[\"Tourist_Arrivals\"], \"\")) + \"; State: \" + (isValid(datum[\"properties.name\"]) ? datum[\"properties.name\"] : \"\"+datum[\"properties.name\"]) + \"; Tourist Arrivals: \" + (format(datum[\"Tourist_Arrivals\"], \"\"))"
+                    }
+                }
+                },
+                "transform": [{"type": "geoshape", "projection": "projection"}]
+            }
+            ],
+            "scales": [
+            {
+                "name": "color",
+                "type": "linear",
+                "domain": {"data": "source_0", "field": "Tourist_Arrivals"},
+                "range": {"scheme": "yelloworangered"},
+                "interpolate": "hcl",
+                "zero": false
+            }
+            ],
+            "legends": [
+            {
+                "title": "Number of Tourists",
+                "fill": "color",
+                "gradientLength": {"signal": "clamp(height, 64, 200)"}
+            }
+            ]
+            };
+        vegaEmbed('#malaysia-map', spec1).then(result => {
+            console.log("Malaysia map rendered successfully");
+        }).catch(console.error);
+    </script>
+
 </body>
 </html>

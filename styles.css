@@ -77,11 +77,42 @@ h1 {
     justify-content: center;
 }
 
-
 .map-description {
     text-align: center;
     margin-top: 10px;
     padding: 10px;
     max-width: 700px;
     line-height: 1.6;
+}
+
+/* Malaysia map container styling */
+.map-container {
+    display: flex;
+    justify-content: flex-start; /* Align map and description side by side */
+    gap: 50px; /* Increased gap between map and description */
+    align-items: flex-start; /* Align at the top of the container */
+    padding: 20px;
+    max-width: 1200px;
+}
+
+/* Map styling */
+#malaysia-map {
+    width: 80%; /* Slightly reduced width to leave more room for text */
+}
+
+/* Description styling */
+.map-description-right {
+    width: 25%; /* Reduced width to avoid overlap */
+    text-align: left;
+    padding: 20px;
+    line-height: 1.6;
+    background-color: #f5f5dc;
+    border-left: 1px solid #f5f5dc;
+    margin-top: 0; /* Ensure the description starts at the same height as the map */
+}
+
+/* Adjust description margins */
+.map-description-right p {
+    margin: 0;
+    padding: 0;
 }
