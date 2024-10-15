@@ -154,7 +154,7 @@ h1 {
     border-radius: 5px;
 }
 
-/* Mode of Arrival Header Section */
+/* Mode of Arrival Title */
 .mode-arrival-title {
     text-align: center;
     background-color: #e0e0c0;
@@ -168,4 +168,11 @@ h1 {
     color: #333;
     font-weight: bold;
     margin: 0;
+}
+
+/* Chart Container */
+.mode-arrival-chart {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }

@@ -374,5 +374,66 @@
         <div id="arrival-chart"></div>
     </section>
 
+    <script>
+        const donutChartSpec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "width": 400,
+            "height": 400,
+            "background": "#f5f5dc",
+            "data": {
+                "url": "https://raw.githubusercontent.com/JunaidLimalia/3179_A2/main/data/mode-of-arrival.csv",
+                "format": {"type": "csv"}
+            },
+            "transform": [
+                {
+                    "calculate": "replace(datum['TOTAL'] || '', /,/g, '')",
+                    "as": "CleanTotal"
+                },
+                {
+                    "calculate": "parseFloat(datum['CleanTotal'])",
+                    "as": "TotalArrivals"
+                }
+            ],
+            "mark": {
+                "type": "arc",
+                "innerRadius": 80,
+                "tooltip": true
+            },
+            "encoding": {
+                "theta": {
+                    "field": "TotalArrivals",
+                    "type": "quantitative",
+                    "stack": true
+                },
+                "color": {
+                    "field": "MODE",
+                    "type": "nominal",
+                    "legend": {"title": "Mode of Arrival"}
+                },
+                "tooltip": [
+                    {"field": "MODE", "type": "nominal", "title": "Mode"},
+                    {
+                        "field": "TotalArrivals",
+                        "type": "quantitative",
+                        "title": "Arrivals",
+                        "format": ","
+                    }
+                ]
+            },
+            "config": {
+                "view": {"stroke": "none"},
+                "arc": {"cornerRadius": 5, "stroke": "#fff", "strokeWidth": 1.5}
+            }
+        };
+
+        // Embed the Vega-Lite donut chart into the correct container
+        vegaEmbed('#arrival-chart', donutChartSpec)
+            .then(function(result) {
+                console.log("Donut chart rendered successfully");
+            })
+            .catch(console.error);
+    </script>
+
+
 </body>
 </html>
