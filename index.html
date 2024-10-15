@@ -19,8 +19,10 @@
     
     <section class="description">
         <p>
-            Malaysia is a Southeast Asian country known for its beautiful beaches, rainforests, and a mix of Malay, Chinese, Indian, and European cultural influences. Tourism in Malaysia is driven by both its natural wonders and vibrant cities, such as Kuala Lumpur. Key attractions include the UNESCO World Heritage sites of George Town, Penang, and the stunning islands of Langkawi and Borneo.
-        </p>
+            <strong>Malaysia</strong> is a Southeast Asian country known for its <strong>beautiful beaches</strong>, <strong>rainforests</strong>, and a mix of <strong>Malay, Chinese, Indian,</strong> and <strong>European cultural influences</strong>. 
+            Tourism in Malaysia is driven by both its <strong>natural wonders</strong> and <strong>vibrant cities</strong>, such as <strong>Kuala Lumpur</strong>. 
+            Key attractions include the <strong>UNESCO World Heritage sites</strong> of <strong>George Town, Penang</strong>, and the stunning islands of <strong>Langkawi</strong> and <strong>Borneo</strong>.
+        </p>        
     </section>
 
     <section class="images">
@@ -39,8 +41,9 @@
 
     <section class="map-description">
         <p>
-            The map above showcases the global distribution of tourist arrivals to Malaysia. The data reflects Malaysia’s position as a key travel destination, attracting visitors from neighboring Asian countries, as well as from Europe, North America, and Australia. Malaysia’s rich cultural diversity, natural beauty, and modern infrastructure make it a popular destination for tourists worldwide.
-        </p>
+            The map above showcases the <strong>global distribution of tourist arrivals</strong> to Malaysia. The data reflects Malaysia’s position as a <strong>key travel destination</strong>, attracting visitors from <strong>neighboring Asian countries</strong>, as well as from <strong>Europe, North America,</strong> and <strong>Australia</strong>. 
+            Malaysia’s <strong>rich cultural diversity</strong>, <strong>natural beauty</strong>, and <strong>modern infrastructure</strong> make it a popular destination for tourists worldwide.
+        </p>        
     </section>
     
 
@@ -142,9 +145,9 @@
         <div id="malaysia-map"></div>
         <div class="map-description-right">
             <p>
-                The map shows the number of tourist arrivals across different Malaysian states in 2023. The darker red areas indicate higher numbers of tourists, with 
-                Selangor and Sabah being the top destinations. These states attract a significant number of both local and international visitors.
-            </p>
+                The map shows the <strong>number of tourist arrivals</strong> across <strong>different Malaysian states in 2023</strong>. The <strong>darker red areas</strong> indicate <strong>higher numbers of tourists</strong>, with 
+                <strong>Selangor</strong> and <strong>Sabah</strong> being the <strong>top destinations</strong>. These states attract a significant number of both <strong>local</strong> and <strong>international visitors</strong>.
+            </p> 
         </div>
     </section>
 
@@ -253,9 +256,10 @@
     <!-- Line Chart Description -->
     <section class="linechart-description">
         <p>
-            The line chart above shows the trend of international tourist arrivals to Malaysia from 1980 to 2020. 
-            A significant drop in tourist arrivals is observed in 2020 due to the global COVID-19 pandemic, which affected travel worldwide.
-        </p>
+            The line chart above shows the trend of <strong>international tourist arrivals</strong> to Malaysia from <strong>1980 to 2020</strong>. 
+            A <strong>significant drop in tourist arrivals</strong> is observed in <strong>2020</strong> due to the global <strong>COVID-19 pandemic</strong>, 
+            which affected travel worldwide.
+        </p>        
     </section>
 
     <script>
@@ -369,9 +373,18 @@
         <h2>Mode of Arrival</h2>
     </section>
 
-    <!-- Placeholder for Mode of Arrival Chart -->
-    <section class="mode-arrival-chart">
+    <!-- Chart and Description Container -->
+    <section class="mode-arrival-container">
+        <!-- Placeholder for Mode of Arrival Chart -->
         <div id="arrival-chart"></div>
+
+        <!-- Description Section -->
+        <div class="mode-arrival-description">
+            <p>
+                The donut chart illustrates the distribution of tourist arrivals in Malaysia via different modes of transportation for the selected period. 
+                <strong>Land transport</strong> accounts for the largest share, followed by <strong>air</strong> and <strong>sea</strong> transport. Rail transport has the smallest contribution.
+            </p>
+        </div>
     </section>
 
     <script>
@@ -426,7 +439,6 @@
             }
         };
 
-        // Embed the Vega-Lite donut chart into the correct container
         vegaEmbed('#arrival-chart', donutChartSpec)
             .then(function(result) {
                 console.log("Donut chart rendered successfully");
@@ -434,6 +446,19 @@
             .catch(console.error);
     </script>
 
+    <!-- Designer Info Header -->
+    <header class="designer-info">
+        <p><strong>Designed by Mohammad Junaid Limalia</strong></p>
+        <p>
+            <strong>Data source:</strong> 
+            <a href="https://archive.data.gov.my/data/dataset/?tags=tourism+malaysia" target="_blank">
+                Malaysia Open Data Portal
+            </a>
+        </p>
+    </header>
+
+    <!-- Blank Footer -->
+    <footer class="footer"></footer>
 
 </body>
 </html>

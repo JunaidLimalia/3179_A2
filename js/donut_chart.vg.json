@@ -1,0 +1,101 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "#f5f5dc",
+  "padding": 5,
+  "width": 400,
+  "height": 400,
+  "style": "view",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/JunaidLimalia/3179_A2/main/data/mode-of-arrival.csv",
+      "format": {"type": "csv", "delimiter": ","},
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "replace(datum['TOTAL'] || '', /,/g, '')",
+          "as": "CleanTotal"
+        },
+        {
+          "type": "formula",
+          "expr": "parseFloat(datum['CleanTotal'])",
+          "as": "TotalArrivals"
+        },
+        {
+          "type": "stack",
+          "groupby": [],
+          "field": "TotalArrivals",
+          "sort": {"field": ["MODE"], "order": ["ascending"]},
+          "as": ["TotalArrivals_start", "TotalArrivals_end"],
+          "offset": "zero"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"TotalArrivals\"]) && isFinite(+datum[\"TotalArrivals\"])"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "arc",
+      "style": ["arc"],
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "innerRadius": {"value": 80},
+          "tooltip": {
+            "signal": "{\"Mode\": isValid(datum[\"MODE\"]) ? datum[\"MODE\"] : \"\"+datum[\"MODE\"], \"Arrivals\": format(datum[\"TotalArrivals\"], \",\")}"
+          },
+          "fill": {"scale": "color", "field": "MODE"},
+          "stroke": {"value": "#fff"},
+          "description": {
+            "signal": "\"TotalArrivals: \" + (format(datum[\"TotalArrivals\"], \"\")) + \"; MODE: \" + (isValid(datum[\"MODE\"]) ? datum[\"MODE\"] : \"\"+datum[\"MODE\"]) + \"; Mode: \" + (isValid(datum[\"MODE\"]) ? datum[\"MODE\"] : \"\"+datum[\"MODE\"]) + \"; Arrivals: \" + (format(datum[\"TotalArrivals\"], \",\"))"
+          },
+          "x": {"signal": "width", "mult": 0.5},
+          "y": {"signal": "height", "mult": 0.5},
+          "outerRadius": {"signal": "min(width,height)/2"},
+          "startAngle": {"scale": "theta", "field": "TotalArrivals_end"},
+          "endAngle": {"scale": "theta", "field": "TotalArrivals_start"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "theta",
+      "type": "linear",
+      "domain": {
+        "data": "source_0",
+        "fields": ["TotalArrivals_start", "TotalArrivals_end"]
+      },
+      "range": [0, 6.283185307179586],
+      "zero": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "source_0", "field": "MODE", "sort": true},
+      "range": "category"
+    }
+  ],
+  "legends": [
+    {
+      "title": "Mode of Arrival",
+      "fill": "color",
+      "symbolType": "circle",
+      "encode": {
+        "symbols": {
+          "update": {"stroke": {"value": "#fff"}, "strokeWidth": {"value": 1.5}}
+        }
+      }
+    }
+  ],
+  "config": {
+    "style": {
+      "cell": {"stroke": "none"},
+      "arc": {"cornerRadius": 5, "stroke": "#fff", "strokeWidth": 1.5}
+    }
+  }
+}

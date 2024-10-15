@@ -147,7 +147,7 @@ h1 {
     max-width: 800px;
     margin: 20px auto;
     line-height: 1.6;
-    font-size: 1.1em;
+    font-size: 1em;
     color: #333;
     padding: 10px;
     background-color: #f5f5dc;
@@ -170,9 +170,78 @@ h1 {
     margin: 0;
 }
 
-/* Chart Container */
-.mode-arrival-chart {
-    display: flex;
-    justify-content: center;
+/* Mode of Arrival Title */
+.mode-arrival-title {
+    text-align: center;
+    background-color: #e0e0c0;
+    padding: 10px;
+    width: 100%;
     margin-top: 20px;
+}
+
+.mode-arrival-title h2 {
+    font-size: 2em;
+    color: #333;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Chart and Description Container */
+.mode-arrival-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+/* Chart Styling */
+#arrival-chart {
+    width: 60%;
+}
+
+/* Description Styling */
+.mode-arrival-description {
+    width: 35%;
+    padding: 20px;
+    background-color: #f5f5dc;
+    line-height: 1.6;
+}
+
+/* Adjust paragraph styling */
+.mode-arrival-description p {
+    margin: 0;
+}
+
+/* Designer Info Header Styling */
+.designer-info {
+    background-color: #e0e0c0; /* Consistent background color */
+    text-align: left; /* Align text to the left */
+    padding: 15px;
+    width: 100%;
+    font-family: "Georgia", serif;
+    color: #333;
+    font-size: 1em;
+    margin-top: 20px;
+    margin-left: 5px;
+}
+.designer-info p {
+    margin: 5px 0;
+    font-weight: bold; /* Bold text */
+}
+.designer-info a {
+    color: #333;
+    text-decoration: none;
+    font-weight: normal; /* Ensure link text is not bold */
+}
+.designer-info a:hover {
+    text-decoration: underline;
+}
+
+/* Blank Footer Styling */
+.footer {
+    background-color: #f5f5dc; /* Footer matches the page background */
+    height: 10px; /* Create space for the blank footer */
+    width: 100%;
+    margin-top: 10px;
 }
