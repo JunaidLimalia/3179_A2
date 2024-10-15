@@ -93,6 +93,7 @@ h1 {
     align-items: flex-start; /* Align at the top of the container */
     padding: 20px;
     max-width: 1200px;
+    margin-bottom: 10px;
 }
 
 /* Map styling */
@@ -115,4 +116,20 @@ h1 {
 .map-description-right p {
     margin: 0;
     padding: 0;
+}
+
+/* Line Chart Title Section */
+.Linechart-title {
+    text-align: center;
+    background-color: #e0e0c0;
+    padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.Linechart-title h2 {
+    font-size: 2em;
+    color: #333;
+    font-weight: bold;
+    margin: 0;
 }
