@@ -1,0 +1,187 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "#f5f5dc",
+  "padding": 5,
+  "width": 800,
+  "height": 400,
+  "style": ["cell", "view"],
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/JunaidLimalia/3179_A2/main/data/1980-2020-international-tourist-arrivals-to-malaysia.csv",
+      "format": {"type": "csv", "delimiter": ","},
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "parseFloat(replace(datum['TOURIST ARRIVAL INTERNATIONAL'], ',', ''))",
+          "as": "Tourist_Arrivals"
+        }
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "impute",
+          "field": "Tourist_Arrivals",
+          "groupby": [],
+          "key": "YEAR",
+          "method": "value",
+          "value": 0
+        },
+        {
+          "type": "stack",
+          "groupby": ["YEAR"],
+          "field": "Tourist_Arrivals",
+          "sort": {"field": [], "order": []},
+          "as": ["Tourist_Arrivals_start", "Tourist_Arrivals_end"],
+          "offset": "zero"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_layer_0_marks",
+      "type": "area",
+      "style": ["area"],
+      "sort": {"field": "x"},
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 0.7},
+          "orient": {"value": "vertical"},
+          "tooltip": {
+            "signal": "{\"Year\": isValid(datum[\"YEAR\"]) ? datum[\"YEAR\"] : \"\"+datum[\"YEAR\"], \"International Tourist Arrivals\": format(datum[\"Tourist_Arrivals\"], \",\")}"
+          },
+          "fill": {
+            "value": {
+              "x1": 1,
+              "y1": 1,
+              "x2": 1,
+              "y2": 0,
+              "gradient": "linear",
+              "stops": [
+                {"offset": 0, "color": "white"},
+                {"offset": 1, "color": "red"}
+              ]
+            }
+          },
+          "description": {
+            "signal": "\"YEAR: \" + (isValid(datum[\"YEAR\"]) ? datum[\"YEAR\"] : \"\"+datum[\"YEAR\"]) + \"; Tourist_Arrivals: \" + (format(datum[\"Tourist_Arrivals\"], \"\")) + \"; Year: \" + (isValid(datum[\"YEAR\"]) ? datum[\"YEAR\"] : \"\"+datum[\"YEAR\"]) + \"; International Tourist Arrivals: \" + (format(datum[\"Tourist_Arrivals\"], \",\"))"
+          },
+          "x": {"scale": "x", "field": "YEAR"},
+          "y": {"scale": "y", "field": "Tourist_Arrivals_end"},
+          "y2": {"scale": "y", "field": "Tourist_Arrivals_start"},
+          "defined": {
+            "signal": "isValid(datum[\"Tourist_Arrivals\"]) && isFinite(+datum[\"Tourist_Arrivals\"])"
+          }
+        }
+      }
+    },
+    {
+      "name": "layer_0_layer_1_marks",
+      "type": "line",
+      "style": ["line"],
+      "sort": {"field": "x"},
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "tooltip": {
+            "signal": "{\"Year\": isValid(datum[\"YEAR\"]) ? datum[\"YEAR\"] : \"\"+datum[\"YEAR\"], \"International Tourist Arrivals\": format(datum[\"Tourist_Arrivals\"], \",\")}"
+          },
+          "stroke": {"value": "red"},
+          "description": {
+            "signal": "\"YEAR: \" + (isValid(datum[\"YEAR\"]) ? datum[\"YEAR\"] : \"\"+datum[\"YEAR\"]) + \"; Tourist_Arrivals: \" + (format(datum[\"Tourist_Arrivals\"], \"\")) + \"; Year: \" + (isValid(datum[\"YEAR\"]) ? datum[\"YEAR\"] : \"\"+datum[\"YEAR\"]) + \"; International Tourist Arrivals: \" + (format(datum[\"Tourist_Arrivals\"], \",\"))"
+          },
+          "x": {"scale": "x", "field": "YEAR"},
+          "y": {"scale": "y", "field": "Tourist_Arrivals_end"},
+          "defined": {
+            "signal": "isValid(datum[\"Tourist_Arrivals\"]) && isFinite(+datum[\"Tourist_Arrivals\"])"
+          }
+        }
+      }
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "text",
+      "style": ["text"],
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "align": {"value": "left"},
+          "dx": {"value": 5},
+          "dy": {"value": -5},
+          "fontWeight": {"value": "bold"},
+          "fill": {"value": "black"},
+          "x": {"signal": "width", "mult": 0.5},
+          "y": {"signal": "height", "mult": 0.5},
+          "baseline": {"value": "middle"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "point",
+      "domain": {"data": "data_0", "field": "YEAR", "sort": true},
+      "range": [0, {"signal": "width"}],
+      "padding": 0.5
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {
+        "data": "data_0",
+        "fields": ["Tourist_Arrivals_start", "Tourist_Arrivals_end"]
+      },
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    }
+  ],
+  "axes": [
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "Year",
+      "domainColor": "black",
+      "domainWidth": 1.5,
+      "labelAngle": 315,
+      "labelColor": "black",
+      "tickColor": "black",
+      "tickSize": 5,
+      "titleColor": "black",
+      "labelAlign": "right",
+      "labelBaseline": "top",
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "Tourist Arrivals ('000)",
+      "domainColor": "black",
+      "domainWidth": 1.5,
+      "labelColor": "black",
+      "tickColor": "black",
+      "tickSize": 5,
+      "titleColor": "black",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "config": {
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 14,
+      "grid": false,
+      "domain": false
+    },
+    "style": {"cell": {"stroke": "none"}, "area": {"strokeWidth": 1.5}}
+  }
+}

@@ -49,7 +49,7 @@
       const spec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "width": 1000,
-        "height": 500,
+        "height": 400,
         "background": "#f5f5dc",
         "padding": {"left": 0, "top": 0, "right": 0, "bottom": 0},
         "projection": {"type": "equalEarth"},
@@ -155,7 +155,7 @@
             "background": "#f5f5dc",
             "padding": 5,
             "width": 800,
-            "height": 600,
+            "height": 450,
             "style": "view",
             "data": [
             {
@@ -243,11 +243,135 @@
 
     <!-- Line Chart container -->
     <section class="Linechart-title">
-        <h2>Tourist Arrival over the Years</h2>
+        <h2>Tourist Arrivals over the Years</h2>
     </section>
 
     <section class="linechart">
         <div id="tourist-linechart"></div>
+    </section>
+
+    <!-- Line Chart Description -->
+    <section class="linechart-description">
+        <p>
+            The line chart above shows the trend of international tourist arrivals to Malaysia from 1980 to 2020. 
+            A significant drop in tourist arrivals is observed in 2020 due to the global COVID-19 pandemic, which affected travel worldwide.
+        </p>
+    </section>
+
+    <script>
+        const lineChartSpec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "width": 800,
+        "height": 400,
+        "background": "#f5f5dc",
+        "data": {
+            "url": "https://raw.githubusercontent.com/JunaidLimalia/3179_A2/main/data/1980-2020-international-tourist-arrivals-to-malaysia.csv",
+            "format": {"type": "csv"}
+        },
+        "transform": [
+            {
+            "calculate": "parseFloat(replace(datum['TOURIST ARRIVAL INTERNATIONAL'], ',', ''))",
+            "as": "Tourist_Arrivals"
+            }
+        ],
+        "layer": [
+            {
+            "mark": {
+                "type": "area",
+                "line": {"color": "red"},
+                "color": {
+                "x1": 1,
+                "y1": 1,
+                "x2": 1,
+                "y2": 0,
+                "gradient": "linear",
+                "stops": [
+                    {"offset": 0, "color": "white"},
+                    {"offset": 1, "color": "red"}
+                ]
+                },
+                "tooltip": true
+            },
+            "encoding": {
+                "x": {
+                "field": "YEAR",
+                "type": "ordinal",
+                "axis": {
+                    "labelAngle": -45,
+                    "title": "Year",
+                    "labelColor": "black",
+                    "titleColor": "black",
+                    "tickColor": "black",
+                    "domainColor": "black",
+                    "domainWidth": 1.5,
+                    "tickSize": 5
+                }
+                },
+                "y": {
+                "field": "Tourist_Arrivals",
+                "type": "quantitative",
+                "axis": {
+                    "title": "Tourist Arrivals ('000)",
+                    "labelColor": "black",
+                    "titleColor": "black",
+                    "tickColor": "black",
+                    "domainColor": "black",
+                    "domainWidth": 1.5,
+                    "tickSize": 5
+                }
+                },
+                "tooltip": [
+                {"field": "YEAR", "type": "ordinal", "title": "Year"},
+                {
+                    "field": "Tourist_Arrivals",
+                    "type": "quantitative",
+                    "title": "International Tourist Arrivals",
+                    "format": ","
+                }
+                ]
+            }
+            },
+            {
+            "mark": {
+                "type": "text",
+                "align": "left",
+                "dx": 5,
+                "dy": -5,
+                "color": "black",
+                "fontWeight": "bold"
+            }
+            }
+        ],
+        "config": {
+            "axis": {
+            "labelFontSize": 12,
+            "titleFontSize": 14,
+            "grid": false,
+            "domain": false
+            },
+            "view": {
+            "stroke": "none"
+            },
+            "area": {
+            "line": true,
+            "strokeWidth": 1.5
+            }
+        }
+        };
+
+        vegaEmbed('#tourist-linechart', lineChartSpec).then(function(result) {
+            console.log("Line chart rendered successfully");
+        }).catch(console.error);
+    </script>
+
+    <!-- Mode of Arrival Header -->
+    <section class="mode-arrival-title">
+        <h2>Mode of Arrival</h2>
+    </section>
+
+    <!-- Placeholder for Mode of Arrival Chart -->
+    <section class="mode-arrival-chart">
+        <div id="arrival-chart"></div>
     </section>
 
 </body>
